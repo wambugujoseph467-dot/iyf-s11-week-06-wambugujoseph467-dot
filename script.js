@@ -131,3 +131,66 @@ getUserData(1)
     .catch(error => {
         console.log("Error:", error);
     });
+
+    //Task 11.3
+    //exercise 1: promise chaining
+
+getUserData(1)
+    .then(user => {
+        console.log("User:", user);
+        return getUserPosts(user.id);
+    })
+    .then(posts => {
+        console.log("Posts:", posts);
+        return getPostComments(posts[0].id);
+    })
+    .then(comments => {
+        console.log("Comments:", comments);
+    })
+    .catch(error => {
+        console.log("Error:", error);
+
+    });// Exercise 2: Promise.all
+
+const promise1 = getUserData(1);
+const promise2 = getUserData(2);
+const promise3 = getUserData(3);
+
+Promise.all([promise1, promise2, promise3])
+    .then(users => {
+        console.log("All users:", users);
+    })
+    .catch(error => {
+        console.log("Error:", error);
+    });
+
+    // Exercise 3: Promise.race
+
+const fast = new Promise(resolve => {
+    setTimeout(() => resolve("Fast!"), 100);
+});
+
+const slow = new Promise(resolve => {
+    setTimeout(() => resolve("Slow!"), 500);
+});
+
+Promise.race([fast, slow])
+    .then(result => {
+        console.log("Winner:", result);
+    });
+
+    // Build: Fetch 3 users simultaneously
+
+Promise.all([
+    getUserData(1),
+    getUserData(2),
+    getUserData(3)
+])
+.then(users => {
+    console.log("Users:");
+    console.log(users);
+})
+.catch(error => {
+    console.log("Error:", error);
+});
+
