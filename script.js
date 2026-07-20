@@ -194,3 +194,74 @@ Promise.all([
     console.log("Error:", error);
 });
 
+//Task 11.4 Asynch/Await
+//exercise 1: converting to asynch/await
+
+async function getDataWithAsync() {
+    const user = await getUserData(1);
+    const posts = await getUserPosts(user.id);
+    const comments = await getPostComments(posts[0].id);
+
+    return comments;
+}
+
+getDataWithAsync().then(comments => {
+    console.log("Comments:", comments);
+});
+
+//exercise 2: error handling with try/catch
+
+async function fetchUserData(userId) {
+    try {
+        const user = await getUserData(userId);
+        const posts = await getUserPosts(user.id);
+
+        console.log("User:", user);
+        console.log("Posts:", posts);
+
+        return { user, posts };
+
+    } catch (error) {
+        console.log("Error:", error);
+    }
+}
+
+fetchUserData(1);
+
+//exercise 3: Parallel with async/await
+
+async function getAllUsers() {
+
+    const users = await Promise.all([
+        getUserData(1),
+        getUserData(2),
+        getUserData(3)
+    ]);
+
+    console.log("All Users:", users);
+
+    return users;
+}
+
+getAllUsers();
+
+//exercise 4: Rewrite callback hell with asynch/await
+// Build
+
+async function showUserData() {
+    try {
+        const user = await getUserData(1);
+        console.log("User:", user);
+
+        const posts = await getUserPosts(user.id);
+        console.log("Posts:", posts);
+
+        const comments = await getPostComments(posts[0].id);
+        console.log("Comments:", comments);
+
+    } catch (error) {
+        console.log("Error:", error);
+    }
+}
+
+showUserData();
