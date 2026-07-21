@@ -35,3 +35,17 @@ h1 {
 #loading {
     font-weight: bold;
 }
+
+input,
+select {
+    padding: 10px;
+    margin: 10px 5px;
+}
+
+.user-card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
